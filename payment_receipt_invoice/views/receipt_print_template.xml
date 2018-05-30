@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+     <template id="report_payment_print">
+        <t t-call="report.html_container">
+            <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+            <div class="page print" >
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img src='/aigs_custom_report/static/src/image/alisan.png' style="max-height: 45px;"/>
+                    </div>
+                    <div class="col-xs-10">
+                        <h3><strong>Payment Receipt 
+                            <t t-foreach="get_details(doc)" t-as="b">
+                                <span t-att-style="style" t-esc="b['name']"/>
+                            </t></strong>
+                        </h3>
+                    </div>
+                </div>
+                <div class="row mt32 mb32" >
+                        <div class="col-xs-12" style="text-align:left;">
+                            <span style="float:left;"><strong>Partner:</strong><span t-field="doc.partner_id.name"/></span>
+                            <span style="float:left; padding-left:50px;"><strong>Invoice Date:</strong><span t-field="doc.date_invoice"/></span>
+                            <span style="float:left; padding-left:50px;"><strong>Due Date:</strong><span t-field="doc.date_due"/></span>
+                        </div>
+                </div>
+                <table class="table table-condensed">
+                     <thead>
+                        <tr >
+                            <th>INVOICE TOTAL</th>
+                            <th>PAID</th>
+                            <th>DUE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="paid_amount" t-value='1'></t>
+                        <t t-foreach="get_details_inv(doc)" t-as="rec">
+                                <tr>
+                                    <td><span t-att-style="style" t-esc="'{0:,.2f}'.format(int(rec['total_amount']))"/></td>
+                                    <t t-set="paid_amount" t-value="rec['paid']"/>
+                                    <td><span t-att-style="style" t-esc="'{0:,.2f}'.format(int(rec['paid']))"/> </td>
+                                    <td><span t-att-style="style" t-esc="'{0:,.2f}'.format(int(rec['balance_amount']))"/></td>
+                                </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <t t-if="paid_amount != 0">
+                    <div class="row mt32 mb32" style="text-align:center;">
+                        <div class="col-xs-12">
+                            <h3><strong>Payment Details</strong></h3>
+                        </div>
+                    </div>
+                    <table class="table table-condensed">
+                         <thead>
+                            <tr >
+                                <th>MEMO</th>
+                                <th>PAYMENT DATE</th>
+                                <th>METHOD</th>
+                                <th>AMOUNT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="get_details(doc)" t-as="b">
+                                <t t-if="b">
+                                    <tr>
+                                        <td><span t-att-style="style" t-esc="b['memo']"/> </td>
+                                        <td><span t-att-style="style" t-esc="b['date']"/></td>
+                                        <td><span t-att-style="style" t-esc="b['method']"/></td>
+                                        <td><span t-att-style="style" t-esc="'{0:,.2f}'.format(int(b['amount']))"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+        </t>
+     </template>
+</openerp>

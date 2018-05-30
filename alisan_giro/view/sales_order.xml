@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sale_order_form_giro" model="ir.ui.view">
+            <field name="name">sale.order_form_giro</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ('sale','done', 'cancel'))]}</attribute>
+                </xpath>
+                <notebook position="inside">
+                    <page string="Giro">
+                        <field name="giro_sales_order_ids">
+                            <tree string="Giro" editable="bottom" attrs="{'readonly': [('state', 'in', ('sale','done', 'cancel'))]}">
+                                <field name="giro_id"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="giro_view_backorder_confirmation" model="ir.ui.view">
+            <field name="name">giro.stock_backorder_confirmation</field>
+            <field name="model">stock.backorder.confirmation</field>
+            <field name="inherit_id" ref="stock.view_backorder_confirmation"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='process_cancel_backorder']" position="attributes">
+                    <attribute name="attrs">{'invisible': 1 }</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

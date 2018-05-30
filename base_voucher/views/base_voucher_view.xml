@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="voucher_form" >
+            <field name="name">res.voucher.form</field>
+            <field name="model">res.voucher</field>
+            <field name="arch" type="xml">
+                <form string="voucher">
+                    <header>
+                        <button name="action_draft" type="object"
+                                string="Reset to draft"
+                                attrs="{'invisible':['|',('load_status','!=','open'),('state','in',['draft'])]}"/>
+                        <button name="action_cancel" type="object"
+                                string="Cancel Voucher"
+                                attrs="{'invisible':[('load_status','!=','in'),('state','!=','confirmed')]}"/>
+                        <button name="action_confirm" type="object"
+                                string="Confirm" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_draft" type="object"
+                                string="Back to draft"
+                                attrs="{'invisible':[('state','!=','done')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <group col="4">
+                    <field name="barcode" attrs="{'readonly': [('state','in',['confirmed', 'done', 'cancel'])]}"/>
+                    <field name="input_date" attrs="{'readonly': [('state','in',['confirmed', 'done', 'cancel'])]}" required="True"/>
+                    <field name="voucher_number"  attrs="{'readonly': [('state','in',['confirmed', 'done', 'cancel'])]}" required="True"/>
+                    <field name="cement_type"  attrs="{'readonly': [('state','in',['confirmed', 'done', 'cancel'])]}" required="True"/>
+                    <field name="web_order_number"  attrs="{'readonly': ['|',('state','=','cancel'),('state','=','done')]}"/>
+                    <field name="uom_id" attrs="{'readonly': [('state','in',['confirmed', 'done', 'cancel'])]}" required="True"/>
+                    <field name="customer_id" attrs="{'readonly': [('state','in',['confirmed', 'done', 'cancel'])]}" required="True"/>
+                    <field name="qty" attrs="{'readonly': [('state','in',['confirmed', 'done', 'cancel'])]}" required="True"/>
+                    <field name="warehouse_id" attrs="{'readonly': [('state','in',['confirmed', 'done', 'cancel'])]}" required="True"/>
+                    <field name="sales_id" attrs="{'readonly': [('state','in',['confirmed', 'done', 'cancel'])]}" required="True"/>
+                    <field name="load_status" required="True"/>
+                    <field name="plate_number" attrs="{'readonly': ['|',('state','=','cancel'),('state','=','done')]}"/>
+                    <field name="driver" attrs="{'readonly': ['|',('state','=','cancel'),('state','=','done')]}"/>
+                    <field name="exp_date" required="True" class="oe_read_only" attrs="{'readonly': ['|',('load_status','=','in'),('state','=','done')]}"/>
+                    <field name="factory" attrs="{'readonly': [('state','in',['confirmed', 'done', 'cancel'])]}" required="True"/>
+                    </group>
+                    <newline />
+                    <notebook position="inside">
+                        <page string="Scan Barcode" name="scan_barcode">
+                            <field name="scan_ids" nolabel="1">
+                                <tree string="Scan"
+                                    editable="none">
+                                    <field name="type" />
+                                    <field name="create_date" />
+                                    <field name="create_uid" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="voucher_tree">
+            <field name="name">res.voucher.tree</field>
+            <field name="model">res.voucher</field>
+            <field name="arch" type="xml">
+                <tree string="voucher">
+                    <field name="voucher_number"/>
+                    <field name="barcode"/>
+                    <field name="web_order_number"/>
+                    <field name="customer_id"/>
+                    <field name="sales_id"/>
+                    <field name="cement_type"/>
+                    <field name="qty"/>
+                    <field name="input_date"/>
+                    <field name="exp_date"/>
+                    <field name="warehouse_id" />
+                    <field name="factory" />
+                    <field name="state"/>
+                    <field name="load_status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_voucher_tree" model="ir.actions.act_window">
+            <field name="name">Voucher</field>
+            <field name="res_model">res.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field ref="voucher_tree" name="view_id"/>
+        </record>
+    
+    </data>
+</openerp>

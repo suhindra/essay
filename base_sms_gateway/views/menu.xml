@@ -1,0 +1,21 @@
+<openerp>
+	<data>
+		<menuitem 
+			id="menu_sms_gategay" 
+			name="SMS Gateway"
+            parent="alisan_customer_geotag.alisan_aigsonline_0" 
+            sequence="30" />
+            	<menuitem 
+            		id="sms_gateway_settings_menu" 
+            		name="SMS Gateway Configuration"
+		            parent="menu_sms_gategay" 
+		            action="sms_gateway_settings_action"
+		            sequence="10"/>
+            	<menuitem
+            		name="SMS Gateway Log"
+		            id="sms_gateway_log_base"
+		            parent="menu_sms_gategay"
+		            action="action_sms_gateway_log_tree"
+		            sequence="20" />
+	</data>
+</openerp>

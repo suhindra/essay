@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="voucher_barcode_tree">
+            <field name="name">res.voucher.barcode.tree</field>
+            <field name="model">res.voucher</field>
+            <field name="arch" type="xml">
+                <tree string="voucher barcode" create="false" editable="bottom">
+                    <field name="barcode" readonly="True"/>
+                    <field name="input_date" readonly="True"/>
+                    <field name="voucher_number"  readonly="True"/>
+                    <field name="cement_type"  readonly="True"/>
+                    <field name="web_order_number"  attrs="{'readonly':[('load_status', '=', 'out')]}"/>
+                    <field name="uom_id" readonly="True"/>
+                    <field name="customer_id" readonly="True"/>
+                    <field name="qty" readonly="True"/>
+                    <field name="warehouse_id" readonly="True"/>
+                    <field name="sales_id" readonly="True"/>
+                    <field name="load_status" required="True"/>
+                    <field name="plate_number"  attrs="{'readonly':[('load_status', '=', 'out')]}"/>
+                    <field name="driver" attrs="{'readonly':[('load_status', '=', 'out')]}"/>
+                    <field name="exp_date" readonly="True"/>
+                    <field name="factory" readonly="True"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_voucher_barcode_tree_out" model="ir.actions.act_window">
+            <field name="name">Voucher Barcode</field>
+            <field name="res_model">res.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field ref="voucher_barcode_tree" name="view_id"/>
+        </record>
+		
+    </data>
+</openerp>

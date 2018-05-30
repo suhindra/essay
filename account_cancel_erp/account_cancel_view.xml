@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="base.model_cancel_reverse_journal_entries" model="res.groups">
+            <field name="name">Cancel / Reverse Journal</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+        
+
+        <record id="view_account_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='147']" position="attributes">
+                    <attribute name="groups">base.model_cancel_reverse_journal_entries</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_cancel']" position="attributes">
+                    <attribute name="groups">base.model_cancel_reverse_journal_entries</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_journal_form_inherit" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <field name="group_invoice_lines" position="after">
+                    <field name="update_posted" groups="base.group_no_one"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="invoice_form_cancel_inherit" model="ir.ui.view">
+            <field name="name">invoice.form.cancel.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='invoice_cancel']" position="replace">
+                    <button name="invoice_cancel" states="draft,proforma2,sale,open" string="Cancel Invoice" groups="account.group_account_invoice"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_supplier_cancel_form_inherit" model="ir.ui.view">
+            <field name="name">invoice.supplier.cancel.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='invoice_cancel']" position="replace">
+                    <button name="invoice_cancel" states="draft,proforma2,sale,open" string="Cancel Invoice" groups="account.group_account_invoice"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="bank_statement_draft_form_inherit" model="ir.ui.view">
+            <field name="name">bank.statement.draft.form.inherit</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_cancel']" position="after">
+                    <button name="button_draft" states="confirm" string="Reset to New" type="object"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="payment_cancel_form_inherit" model="ir.ui.view">
+            <field name="name">payment.cancel.form.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/field[@name='state']" position="before">
+                    <button name="cancel" attrs="{'invisible': [('state', '=', 'draft')]}" string="Cancel" type="object"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

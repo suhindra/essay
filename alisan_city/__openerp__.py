@@ -1,0 +1,16 @@
+{
+    'name': 'City management',
+    'version': '1.0',
+    'depends': ['base'],
+    'author': "Suhindra",
+    'maintainer': 'Suhindra',
+    'license': "AGPL-3",
+    'summary': '''City management system''',
+    'data': ['views/alisan_city_view.xml',
+             'views/state_view.xml',
+             'views/partner_view.xml',
+             'views/menu.xml',
+             'security/ir.model.access.csv'],
+    'installable': True,
+    'auto_install': False,
+}

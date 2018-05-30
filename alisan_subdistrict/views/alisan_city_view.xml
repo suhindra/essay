@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- Add cities to the State form -->
+        <record model="ir.ui.view" id="alisan_subdistrict_city_form">
+            <field name="name">view_city_subdistrict_form</field>
+            <field name="model">res.alisan.city</field>
+            <field name="inherit_id" ref="alisan_city.alisan_city_form"/>
+            <field name="arch" type="xml">
+                <field name="state_id" position="after">
+                    <field name="alisan_subdistrict_ids"
+                        context="{'state_id': state_id}"
+                        colspan="4"
+                        nolabel="1">
+                        <tree editable="top">
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="zip"/>
+                        </tree>
+                    </field>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

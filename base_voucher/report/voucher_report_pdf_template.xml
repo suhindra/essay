@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="base_voucher.voucher_report_pdf_template_style">
+            .page{
+                font-size: 14px;
+            }
+            .table-report {border:1px solid #000;border-collapse: collapse; font-size: 14px;}   
+            tr td th{
+                border:1px solid #000;border-collapse: collapse;
+            }  
+            th{
+                font-weight: 400;
+            }
+            .blue {
+                color: blue;
+            }         
+            .red {
+                color: red;
+            }
+        </template>
+        <template id="base_voucher.voucher_report_pdf_template">
+            <html>
+                <head>
+                    <style type="text/css">
+                        <t t-call="base_voucher.voucher_report_pdf_template_style"/>
+                    </style>
+                </head>
+                <body>
+                    <div class="page">
+                        <h1>Voucher Pemuatan Semen</h1>
+                        <table class="table-report" border="1">
+                            <tr>
+                                <td class="group-header blue" colspan="12">Group By Document Status = Draft</td>
+                            </tr>
+                            <tr>
+                                <th>No. Voucher</th>
+                                <th>Barcode</th>
+                                <th>Customer Name</th>
+                                <th>Tipe Semen</th>
+                                <th>UoM</th>
+                                <th>Qty</th>
+                                <th>Scan Masuk Datetime</th>
+                                <th>Scan Masuk User ID</th>
+                                <th>Scan Masuk From</th>
+                                <th>Scan Keluar Datetime</th>
+                                <th>Scan Keluar User ID</th>
+                                <th>Scan Keluar From</th>
+                            </tr>
+                            <t t-set="idraft" t-value="0"/>
+                            <t t-foreach="docs" t-as="o">
+                            <t t-if="o.state == 'draft'">
+                            <t t-set="idraft" t-value="idraft+1"/>
+                            <tr>
+                                <td><span t-field="o.voucher_number"/></td>
+                                <td><span t-field="o.barcode"/></td>
+                                <td><span t-field="o.customer_id.name"/></td>
+                                <td><span t-field="o.cement_type.name"/></td>
+                                <td><span t-field="o.uom_id.name"/></td>
+                                <td><span t-field="o.qty"/></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            </t>
+                            </t>
+                            <tr>
+                                <td class="group-header blue" colspan="4">Total Draft Record</td>
+                                <td colspan="8"><span t-esc="idraft"/></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table class="table-report" border="1">
+                            <tr>
+                                <td class="group-header blue" colspan="12">Group By Document Status = Released</td>
+                            </tr>
+                            <tr>
+                                <td class="group-subheader red" colspan="12">Group By Pemuatan Status = Belum di Scan</td>
+                            </tr>
+                            <tr>
+                                <th>No. Voucher</th>
+                                <th>Barcode</th>
+                                <th>Customer Name</th>
+                                <th>Tipe Semen</th>
+                                <th>UoM</th>
+                                <th>Qty</th>
+                                <th>Scan Masuk Datetime</th>
+                                <th>Scan Masuk User ID</th>
+                                <th>Scan Masuk From</th>
+                                <th>Scan Keluar Datetime</th>
+                                <th>Scan Keluar User ID</th>
+                                <th>Scan Keluar From</th>
+                            </tr>
+                            <t t-set="iopen" t-value="0"/>
+                            <t t-foreach="docs" t-as="o">
+                            <t t-if="o.state == 'confirmed' and o.load_status == 'open'">
+                            <t t-set="iopen" t-value="iopen+1"/>
+                            <tr>
+                                <td><span t-field="o.voucher_number"/></td>
+                                <td><span t-field="o.barcode"/></td>
+                                <td><span t-field="o.customer_id.name"/></td>
+                                <td><span t-field="o.cement_type.name"/></td>
+                                <td><span t-field="o.uom_id.name"/></td>
+                                <td><span t-field="o.qty"/></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            </t>
+                            </t>
+                            <tr>
+                                <td class="group-subheader red" colspan="4">Total Belum di Scan</td>
+                                <td colspan="8"><span t-esc="iopen"/></td>
+                            </tr>
+                            <br/>
+                            <tr>
+                                <td class="group-subheader red" colspan="12">Group By Pemuatan Status = Scan Masuk</td>
+                            </tr>
+                            <tr>
+                                <th>No. Voucher</th>
+                                <th>Barcode</th>
+                                <th>Customer Name</th>
+                                <th>Tipe Semen</th>
+                                <th>UoM</th>
+                                <th>Qty</th>
+                                <th>Scan Masuk Datetime</th>
+                                <th>Scan Masuk User ID</th>
+                                <th>Scan Masuk From</th>
+                                <th>Scan Keluar Datetime</th>
+                                <th>Scan Keluar User ID</th>
+                                <th>Scan Keluar From</th>
+                            </tr>
+                            <t t-set="iin" t-value="0"/>
+                            <t t-foreach="docs" t-as="o">
+                            <t t-if="o.state == 'confirmed' and o.load_status == 'in'">
+                            <t t-set="iin" t-value="iin+1"/>
+                            <tr>
+                                <td><span t-field="o.voucher_number"/></td>
+                                <td><span t-field="o.barcode"/></td>
+                                <td><span t-field="o.customer_id.name"/></td>
+                                <td><span t-field="o.cement_type.name"/></td>
+                                <td><span t-field="o.uom_id.name"/></td>
+                                <td><span t-field="o.qty"/></td>
+                                <t t-foreach='o.scan_ids' t-as='value'>
+                                    <t t-if="value.type == 'in'">
+                                        <td><span t-field="value.create_date" t-field-options='{"format": "d MMMM y"}'/></td>
+                                        <td><span t-field="value.create_uid.name"/></td>
+                                    </t>
+                                </t>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            </t>
+                            </t>
+                            <tr>
+                                <td class="group-subheader red" colspan="4">Total Scan Masuk</td>
+                                <td colspan="8"><span t-esc="iin"/></td>
+                            </tr>
+                            <tr>
+                                <td class="group-header blue" colspan="4">Total Released Record</td>
+                                <td colspan="8"><span t-esc="iin+iopen"/></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table class="table-report" border="1">
+                            <tr>
+                                <td  class="group-header blue" colspan="12">Group By Document Status = Closed / Complete scan</td>
+                            </tr>
+                            <tr>
+                                <th>No. Voucher</th>
+                                <th>Barcode</th>
+                                <th>Customer Name</th>
+                                <th>Tipe Semen</th>
+                                <th>UoM</th>
+                                <th>Qty</th>
+                                <th>Scan Masuk Datetime</th>
+                                <th>Scan Masuk User ID</th>
+                                <th>Scan Masuk From</th>
+                                <th>Scan Keluar Datetime</th>
+                                <th>Scan Keluar User ID</th>
+                                <th>Scan Keluar From</th>
+                            </tr>
+                            <t t-set="idone" t-value="0"/>
+                            <t t-foreach="docs" t-as="o">
+                            <t t-if="o.state == 'done'">
+                            <t t-set="idone" t-value="idone+1"/>
+                            <tr>
+                                <td><span t-field="o.voucher_number"/></td>
+                                <td><span t-field="o.barcode"/></td>
+                                <td><span t-field="o.customer_id.name"/></td>
+                                <td><span t-field="o.cement_type.name"/></td>
+                                <td><span t-field="o.uom_id.name"/></td>
+                                <td><span t-field="o.qty"/></td>
+                                <t t-foreach='o.scan_ids' t-as='value'>
+                                    <t t-if="value.type == 'in'">
+                                        <td><span t-field="value.create_date" t-field-options='{"format": "d MMMM y"}'/></td>
+                                        <td><span t-field="value.create_uid.name"/></td>
+                                        <td><span t-field="value.scan_by"/></td>
+                                    </t>
+                                </t>
+                                <t t-foreach='o.scan_ids' t-as='value'>
+                                    <t t-if="value.type == 'out'">
+                                        <td><span t-field="value.create_date" t-field-options='{"format": "d MMMM y"}'/></td>
+                                        <td><span t-field="value.create_uid.name"/></td>
+                                        <td><span t-field="value.scan_by"/></td>
+                                    </t>
+                                </t>
+                            </tr>
+                            </t>
+                            </t>
+                            <tr>
+                                <td class="group-header blue" colspan="4">Total Released Closed / Complete scan</td>
+                                <td colspan="8"><span t-esc="idone"/></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table class="table-report" border="1">
+                            <tr>
+                                <td class="group-header blue" colspan="12">Group By Document Status = Expired</td>
+                            </tr>
+                            <tr>
+                                <th>No. Voucher</th>
+                                <th>Barcode</th>
+                                <th>Customer Name</th>
+                                <th>Tipe Semen</th>
+                                <th>UoM</th>
+                                <th>Qty</th>
+                                <th>Scan Masuk Datetime</th>
+                                <th>Scan Masuk User ID</th>
+                                <th>Scan Masuk From</th>
+                                <th>Scan Keluar Datetime</th>
+                                <th>Scan Keluar User ID</th>
+                                <th>Scan Keluar From</th>
+                            </tr>
+                            <t t-set="iexp" t-value="0"/>
+                            <t t-foreach="docs" t-as="o">
+                            <t t-if="o.state == 'exp'">
+                            <t t-set="iexp" t-value="iexp+1"/>
+                            <tr>
+                                <td><span t-field="o.voucher_number"/></td>
+                                <td><span t-field="o.barcode"/></td>
+                                <td><span t-field="o.customer_id.name"/></td>
+                                <td><span t-field="o.cement_type.name"/></td>
+                                <td><span t-field="o.uom_id.name"/></td>
+                                <td><span t-field="o.qty"/></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            </t>
+                            </t>
+                            <tr>
+                                <td class="group-header blue" colspan="4">Total Expired Record</td>
+                                <td colspan="8"><span t-esc="iexp"/></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table class="table-report" border="1">
+                            <tr>
+                                <td class="group-header blue" colspan="12">STATISTIK :</td>
+                            </tr>
+                            <tr>
+                                <td>Total Record</td>
+                                <td><span t-esc="idraft+iopen+iin+idone+iexp"/></td>
+                            </tr>
+                            <tr>
+                                <td>Draft</td>
+                                <td><span t-esc="idraft"/></td>
+                            </tr>
+                            <tr>
+                                <td>Releases - Belum Scan</td>
+                                <td><span t-esc="iopen"/></td>
+                            </tr>
+                            <tr>
+                                <td>Releases - Scan Masuk</td>
+                                <td><span t-esc="iin"/></td>
+                            </tr>
+                            <tr>
+                                <td>Closed - Scan Completed</td>
+                                <td><span t-esc="idone"/></td>
+                            </tr>
+                            <tr>
+                                <td>Expired</td>
+                                <td><span t-esc="iexp"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </body>
+            </html>
+        </template>
+
+        <report id="base_voucher.voucher_pdf_report"
+                name="base_voucher.voucher_report_pdf_template"
+                file="base_voucher.voucher_report_pdf_template"
+                model="res.voucher"
+                report_type="qweb-pdf"
+                string="Voucher PDF Report"
+                menu="True"/>
+
+    </data>
+</openerp>

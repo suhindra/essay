@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>        
+        <record id="alisan_sms_blast_list" model="ir.ui.view">
+            <field name="name">Alisan SMS Blast</field>
+            <field name="model">alisan.sms.blast</field>
+            <field name="arch" type="xml">
+                <tree string="bukti_bayar List">
+                    <field name='name'/>
+                    <field name='text'/>
+                    <field name='create_date'/>
+                </tree>
+            </field>
+        </record>
+        <record id="alisan_sms_blast_form" model="ir.ui.view">
+            <field name="name">Alisan SMS Blast</field>
+            <field name="model">alisan.sms.blast</field>
+            <field name="arch" type="xml">
+                <form string="Form SMS  Blast">
+                    <header>
+                        <button string="Get Customer" icon="" type="object" name="action_get_customer" class="oe_highlight"/>
+                        <button string="Send SMS Blast" icon="" type="object" name="action_send"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='name'/>
+                                <field name='text'/>
+                                <field name='create_date'/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="SMS LLine">
+                                <field name="alisan_sms_blast_line">
+                                    <tree string="Invoices" editable="bottom">
+                                        <field name="partner_id"/>
+                                        <field name="create_date"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_sms_blast_tree" model="ir.actions.act_window">
+            <field name="name">SMS Blast</field>
+            <field name="res_model">alisan.sms.blast</field>
+            <field name="view_mode">tree,form</field>
+            <field ref="alisan_sms_blast_list" name="view_id"/>
+        </record>
+
+        <menuitem 
+            id="sms_blast_menu" 
+            name="SMS Blast"
+            parent="menu_sms_gateway" 
+            action="base_sms_gateway_erp.action_sms_blast_tree"
+            sequence="10"/>
+    </data>
+</openerp>

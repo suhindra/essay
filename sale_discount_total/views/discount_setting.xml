@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_account_config_settings_inherit" model="ir.ui.view">
+			<field name="name">account settings</field>
+			<field name="model">account.config.settings</field>
+			<field name="inherit_id" ref="account.view_account_config_settings"/>
+			<field name="arch" type="xml">
+			    <xpath expr="//group[@name='bank_cash']" position="after">
+			    	<group attrs="{'invisible': [('has_chart_of_accounts','=',False)]}">
+                        <label for="id" string="Discount"/>
+                        <div name="invoice_sale_discount">
+                            <div>
+                                <label string="Sale Discount Accounts" class="oe_inline"/> 
+								<field name="sale_discount_account" class="oe_inline"/>
+                            </div>
+                            <div>
+                                <label string="Purchase Discount Accounts" class="oe_inline"/>
+								<field name="purchase_discount_account" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </group>
+				</xpath>         
+			</field>
+		</record>
+	</data>
+</openerp>

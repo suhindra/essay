@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="cust_route_tree" model="ir.ui.view">
+			<field name="name">cust_route_tree</field>
+			<field name="model">fjp.route</field>
+			<field name="arch" type="xml">
+				<tree string="Rute Kunjungan">
+					<field name="route_code" />
+					<field name="salesperson_id" />
+					<field name="description" />
+				</tree>
+			</field>
+		</record>
+	</data>
+</openerp>

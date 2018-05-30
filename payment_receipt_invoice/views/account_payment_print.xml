@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="report_payment_receipt"
+            string="Payment Receipt"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            file="payment_receipt_invoice.report_payment"
+            name="payment_receipt_invoice.report_payment"
+        />
+        <template id="payment_receipt_invoice.payment_receipt_invoice_template_style">
+            @media print {
+              font-family: 'Arial', cursive;
+                * {margin:0;padding:0}
+              body * {
+                visibility: hidden;
+              }
+              .page * {
+                visibility: visible;
+              }
+            }
+            /* latin-ext */
+
+            }
+
+            @page{
+            font-family: 'Arial', cursive;
+            margin-top: 1cm;
+            margin-right: 1cm;
+            margin-left: 1cm;
+            }
+            .h1 {
+                position: relative;
+                left: 10px;
+                text-decoration: underline !important;
+            }
+            .header-title { 
+                color: 000000;
+                font-family: 'Arial', cursive;
+                text-align: center;
+                text-decoration: underline;
+                font-size: 20px;
+                font-weight: normal;
+            }
+            .center-aling { 
+                color: 000000;
+                text-align: center;
+            }
+            .page {
+                line-height: 120%;
+                color: 000000;
+                font-family: 'Arial', cursive;
+                text-align: left;
+                width: auto%;                
+            }
+            .spaceUnder td
+            {
+              padding-bottom: 1em;
+            }
+
+            .spacettd td
+            {
+              padding-bottom: 3em;
+            }
+
+            table:last-of-type {
+                page-break-after: always
+            }
+            .table-report {width:9in;border:1px solid #000;border-collapse: collapse; font-size: 14px;}
+            td,th {border:none}
+            .leftpad td {padding-left: 30px; !important}
+            .tblbdr {border:1px solid #000;text-align:center}
+        </template>
+
+        <template id="report_payment">
+            <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <style type="text/css">
+                    <t t-call="payment_receipt_invoice.payment_receipt_invoice_template_style"/>
+                </style>
+                <t t-call="payment_receipt_invoice.report_payment_print" t-lang="doc.partner_id.lang"/>
+            </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

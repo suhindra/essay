@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="tree_partners_extra">
+            <field name="name">res.partner.extend.field</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='phone']" position="before">
+                        <field name="mobile" /> 
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

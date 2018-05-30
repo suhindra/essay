@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="prod_ageing_view" model="ir.ui.view">
+            <field name="name">Product Ageing Wizard</field>
+            <field name="model">product.ageing</field>
+            <field name="arch" type="xml">
+               <form>
+                   <sheet>
+                       <group>
+                           <group>
+                               <field name="location_id" widget="many2many_tags" />
+                               <field name="product_categ" widget="many2many_tags" />
+                            </group>
+                           <group>
+                               <field name="from_date" />
+                               <field name="interval" />
+                            </group>
+                       </group>
+                    </sheet>
+                   <footer>
+                        <button string="Excel File" name="check_report" type="object" class="btn-primary"/>
+                        <button string="Discard" class="btn-default" special="cancel"/>
+                   </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_prod_ageing" model="ir.actions.act_window">
+            <field name="name">Stock Ageing</field>
+            <field name="res_model">product.ageing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="prod_ageing_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Stock Ageing" id="prod_ageing" action="action_prod_ageing"
+                  parent="stock.menu_warehouse_report"/>
+
+    </data>
+</odoo>
+
+
+

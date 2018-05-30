@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="voucher_report_form" model="ir.ui.view">
+            <field name="name">Voucher Report</field>
+            <field name="model">voucher.print.report</field>
+            <field name="arch" type="xml">
+                <form string="Voucher Report" class="oe_form_configuration">
+                    <header>
+                        <button string="Preview Report" type="object"
+                            name="render_html_voucher_report" class="oe_highlight"/>
+
+                        <button string="Save to PDF" type="object"
+                            name="render_pdf_voucher_report" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" type="object"
+                            name="cancel" class="oe_link"/>
+                    </header>
+                    <group string="Voucheer Report">
+                        <label for="customer_id" string="Pelanggan"/>
+                        <div>
+                            <div>
+                                <field name="customer_id"  options="{'no_create': True}"/>
+                            </div>
+                        </div>
+                        <label for="start_date" string="Start Date"/>
+                        <div>
+                            <div>
+                                <field name="start_date"/>
+                            </div>
+                        </div>
+                        <label for="end_date" string="End Date"/>
+                        <div>
+                            <div>
+                                <field name="end_date"/>
+                            </div>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="voucher_report_action" model="ir.actions.act_window">
+            <field name="name">Voucher Report</field>
+            <field name="res_model">voucher.print.report</field>
+            <field name="view_id" ref="voucher_report_form"/>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+    </data>
+</openerp>

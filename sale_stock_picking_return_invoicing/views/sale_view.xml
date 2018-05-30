@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="return_refund_sale_view_form" model="ir.ui.view">
+            <field name="name">return.refund.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="after">
+                    <field name="qty_refunded"/>
+                    <field name="qty_returned"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="stock_move_view_date_tree" model="ir.ui.view">
+            <field name="name">stock.move.view.date.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="attributes">
+                    <attribute name="groups"></attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

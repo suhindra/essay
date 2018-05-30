@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="base_voucher.voucher_validation_report_template_style">
+            @media print {
+                * {margin:0;padding:0}
+              body * {
+                visibility: hidden;
+              }
+              .page * {
+                visibility: visible;
+              }
+            }
+            /* latin-ext */
+
+            }
+
+            @page{
+            margin-top: 1cm;
+            margin-right: 1cm;
+            margin-left: 1cm;
+            }
+            .h1 {
+                position: relative;
+                left: 10px;
+                text-decoration: underline !important;
+            }
+            .header-title { 
+                color: 000000;
+                font-family: 'Arial', cursive;
+                text-align: center;
+                text-decoration: underline;
+                font-size: 20px;
+                font-weight: normal;
+            }
+            .center-aling { 
+                color: 000000;
+                text-align: center;
+            }
+            .page {
+                line-height: 120%;
+                color: 000000;
+                font-family: 'Arial', cursive;
+                text-align: left;
+                width: auto%;                
+            }
+            .spaceUnder td
+            {
+              padding-bottom: 1em;
+            }
+
+            .spacettd td
+            {
+              padding-bottom: 3em;
+            }
+
+            table:last-of-type {
+                page-break-after: always
+            }
+            .table-report {width:9in;border:1px solid #000;border-collapse: collapse; font-size: 14px;}
+            td,th {border:none}
+            .leftpad td {padding-left: 30px; !important}
+            .tblbdr {border:1px solid #000;text-align:center}
+        </template>
+        <template id="base_voucher.voucher_validation_report_template">
+            <html>
+                <head>
+                    <style type="text/css">
+                        <t t-call="base_voucher.voucher_validation_report_template_style"/>
+                    </style>
+                </head>
+                <body>
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page print">
+                            <table class="table-report">
+                                <tr>
+                                    <td colspan="3"><h1 class="header-title">Surat Validasi Voucher</h1></td>
+                                </tr>
+                                <tr class="leftpad">
+                                    <td width="25%">Penerbit Voucher</td>
+                                    <td width="5%">:</td>
+                                    <td width="20%">PT. Jaya Gunung Bersama</td>
+                                </tr>
+                                <tr class="leftpad">
+                                    <td width="25%">Tanggal Validasi</td>
+                                    <td width="5%">:</td>
+                                    <t t-foreach='o.scan_ids' t-as='value'>
+                                         <t t-if="value.type == 'in'">
+                                             <td width="20%"><span t-field="value.create_date" t-field-options='{"format": "d MMMM y"}'/></td>
+                                         </t>
+                                    </t>
+                                </tr>
+                                <tr class="spaceUnder leftpad">
+                                    <td width="25%">Waktu daftar</td>
+                                    <td width="5%">:</td>
+                                    <t t-foreach='o.scan_ids' t-as='value'>
+                                        <t t-if="value.type == 'in'">
+                                            <td width="20%"><span t-field="value.create_date" t-field-options='{"format": "HH:mm"}'/></td>
+                                        </t>
+                                    </t>
+                                </tr>
+                                <tr class="spaceUnder leftpad">
+                                    <td width="25%">Plat No</td>
+                                    <td width="5%">:</td>
+                                    <td width="20%"><t t-esc="o.plate_number" /></td>
+                                </tr>
+                                <tr class="leftpad">
+                                    <td width="25%">Nama Supir</td>
+                                    <td width="5%">:</td>
+                                    <td width="20%"><t t-esc="o.driver" /></td>
+                                </tr>
+                                <tr class="leftpad">
+                                    <td width="25%">No Voucher</td>
+                                    <td width="5%">:</td>
+                                    <td width="20%"><t t-esc="o.voucher_number" /></td>
+                                </tr>
+                                <tr class="leftpad">
+                                    <td width="25%">No DO Cemindo</td>
+                                    <td width="5%">:</td>
+                                    <td width="20%"><t t-esc="o.web_order_number" /></td>
+                                </tr>
+                                <tr class="leftpad">
+                                    <td width="25%">Type Semen</td>
+                                    <td width="5%">:</td>
+                                    <td width="20%"><t t-esc="o.cement_type.name" /></td>
+                                </tr>
+                                <tr class="spaceUnder leftpad">
+                                    <td width="25%">Quantity</td>
+                                    <td width="5%">:</td>
+                                    <td width="20%"><t t-esc="o.qty" /> <t t-esc="o.uom_id.name" /></td>
+                                </tr>
+                                <tr class="spaceUnder center-aling">
+                                    <td class="text-center" colspan="3" width="100%">Mohon Dapat dilakukan Pemuatan untuk Mobil ini</td>
+                                </tr>
+                                <tr class="tblbdr">
+                                    <td class="text-center tblbdr">Divalidasi Oleh</td>
+                                    <td class="text-center tblbdr" colspan="2">Diterima Oleh</td>
+                                </tr>
+                                <tr class="spacettd">
+                                    <td class="text-center tblbdr"></td>
+                                    <td class="text-center" colspan="2"></td>
+                                </tr>
+                                <tr class="tblbdr">
+                                    <td class="text-center tblbdr">Alisan - <t t-esc="o.factory.name" /> Kontainer</td>
+                                    <td class="text-center tblbdr" colspan="2">Admin Dispatch</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+                </body>
+            </html>
+        </template>
+
+        <report id="base_voucher.voucher_validation_report"
+                name="base_voucher.voucher_validation_report_template"
+                file="base_voucher.voucher_validation_report_template"
+                model="res.voucher"
+                report_type="qweb-html"
+                string="Validation Print"
+                menu="True"/>
+
+    </data>
+</openerp>

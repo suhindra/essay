@@ -1,0 +1,47 @@
+# coding: utf-8
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+
+from openerp import models, api, fields, _
+
+
+class AccountPaymentTerm(models.Model):
+
+    _inherit = 'account.payment.term'
+
+    @api.multi
+    @api.depends('line_ids')
+    def _compute_payment_type(self):
+        key_payment = "account.payment_term_type"
+        payment_type = self.env["ir.config_parameter"].get_param(
+            key_payment, default='bqp')
+        for record in self:
+            if payment_type == 'bqp':
+                record.payment_type = 'cash'
+                if len(record.line_ids) > 1:
+                    record.payment_type = 'credit'
+            elif payment_type == 'bdp':
+                for line in record.line_ids:
+                    record.payment_type = 'cash'
+                    if line.days > 0:
+                        record.payment_type = 'credit'
+
+            elif payment_type == 'both':
+                bqp = 'cash'
+                bdp = 'cash'
+                record.payment_type = 'cash'
+                if len(record.line_ids) > 1:
+                    bqp = 'credit'
+
+                for line in record.line_ids:
+                    bdp = 'cash'
+                    record.payment_type = 'cash'
+                    if line.days > 0:
+                        bdp = 'credit'
+
+                if bqp == 'credit' or bdp == 'credit':
+                    record.payment_type = 'credit'                    
+
+    payment_type = fields.Selection(
+        [('credit', _('Credit')),
+         ('cash', _('Cash'))],
+        string="Payment Type", compute='_compute_payment_type')

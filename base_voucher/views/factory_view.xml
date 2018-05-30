@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="factory_form">
+            <field name="name">factory.form</field>
+            <field name="model">factory</field>
+            <field name="arch" type="xml">
+                <form string="factory">
+                    <group>
+                    <field name="name"/>
+                    <field name="address"/>
+                    <field name="contact"/>
+                    <field name="description"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="factory_tree">
+            <field name="name">factory.tree</field>
+            <field name="model">factory</field>
+            <field name="arch" type="xml">
+                <tree string="factory">
+                    <field name="name"/>
+                    <field name="address"/>
+                    <field name="contact"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_factory_filter" model="ir.ui.view">
+            <field name="name">factory.select</field>
+            <field name="model">factory</field>
+            <field name="arch" type="xml">
+                <search string="Search Cement Type">
+                    <field name="name"/>
+                    <field name="address"/>
+                    <field name="contact"/>
+                    <field name="description"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_factory_tree" model="ir.actions.act_window">
+            <field name="name">Cement Type</field>
+            <field name="res_model">factory</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field ref="factory_tree" name="view_id"/>
+            <field name="search_view_id" ref="view_factory_filter"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,90 @@
+<openerp>
+	<data>
+		<menuitem 
+				id="menu_voucher" 
+				name="Voucher" 
+				parent="alisan_customer_geotag.alisan_aigsonline_0" 
+				sequence="20"/>
+					<menuitem 
+			        	id="your_settings_menu" 
+			        	name="Voucher Configuration"
+            			parent="menu_voucher" 
+            			action="your_settings_action"
+            			sequence="10" />
+					<menuitem 
+			        	id="voucher_report_menu" 
+			        	name="Voucher Report"
+            			parent="menu_voucher" 
+            			action="voucher_report_action"
+            			sequence="20" />
+					<menuitem
+			            name="Voucher"
+			            id="voucher_base"
+			            parent="menu_voucher"
+			            action="action_voucher_tree"
+			            sequence="30" />
+			        <menuitem
+			            name="Voucher Barcode"
+			            id="voucher_barcode"
+			            parent="menu_voucher"
+			            action="action_voucher_barcode_tree_out"
+			            sequence="40" />
+			        <menuitem
+			            name="Scan Masuk"
+			            id="voucher_scan_in"
+			            parent="menu_voucher"
+			            action="action_voucher_form"
+			            sequence="50" />
+			        <menuitem
+			            name="Scan Keluar"
+			            id="voucher_scan_out"
+			            parent="menu_voucher"
+			            action="action_voucher_form_out"
+			            sequence="60" />
+			        <menuitem
+			            name="Scan Batal Muat"
+			            id="voucher_scan_cancel_out"
+			            parent="menu_voucher"
+			            action="action_voucher_form_cancel_load"
+			            sequence="60" />
+	
+		<!-- ikut : alisan_customer_geotag.menu_configuration -->
+		<menuitem
+            name="Cement Type"
+            id="cement_type_base"
+            parent="alisan_customer_geotag.menu_configuration"
+            action="action_cement_type_tree"
+            sequence="10" />
+		<menuitem
+            name="Pabrik / Lokasi Pemuatan"
+            id="factory_base"
+            parent="alisan_customer_geotag.menu_configuration"
+            action="action_factory_tree"
+            sequence="20" />
+        <menuitem 
+       		name="Fed. States"
+       		id="menu_country_state_partner" 
+       		parent="alisan_customer_geotag.menu_configuration"
+       		action="base.action_country_state" 
+       		sequence="30"/>
+       	<menuitem
+            name="Kota/Kabupaten"
+            id="alisan_city"
+            parent="alisan_customer_geotag.menu_configuration"
+            action="alisan_city.action_city_tree"
+            sequence="40" />
+        <menuitem
+            name="Kecamatan"
+            id="subdistrict_alisan"
+            parent="alisan_customer_geotag.menu_configuration"
+            action="alisan_subdistrict.action_subdistrict_tree"
+            sequence="50" />
+        <menuitem 
+        	name="Sales Teams"
+            id="base.sales_team_config"
+            parent="alisan_customer_geotag.menu_configuration"
+            action="sales_team.sales_team_config_action"
+            sequence="60" />
+            	
+	</data>
+</openerp>

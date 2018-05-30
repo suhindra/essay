@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<report
+		id="report_product_ageing"
+		model="stock.quant"
+		report_type="xlsx"
+		string="Ageing Analysis"
+		name="product_ageing_report.report_ageing_analysis"
+		file="product_ageing_report.report_ageing_analysis"
+		menu="False"
+	/>
+</odoo>

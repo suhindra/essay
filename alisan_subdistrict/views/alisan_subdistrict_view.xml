@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="alisan_subdistrict_form">
+            <field name="name">res.alisan.subdistrict.form</field>
+            <field name="model">res.alisan.subdistrict</field>
+            <field name="arch" type="xml">
+                <form string="ZIP">
+                    <group col="4">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="zip"/>
+                    <field name="city_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="alisan_subdistrict_tree">
+            <field name="name">res.alisan.subdistrict.tree</field>
+            <field name="model">res.alisan.subdistrict</field>
+            <field name="arch" type="xml">
+                <tree string="ZIP">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="zip"/>
+                    <field name="city_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_alisan_subdistrict_filter" model="ir.ui.view">
+            <field name="name">res.alisan.subdistrict.select</field>
+            <field name="model">res.alisan.subdistrict</field>
+            <field name="arch" type="xml">
+                <search string="Search Subdistrict">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="zip"/>
+                    <field name="city_id"/>
+                        <group expand="0" string="Group By">
+                            <filter string="City" domain="[]" context="{'group_by':'city_id'}"/>
+                            <filter string="State" domain="[]" context="{'group_by':'state_id'}"/>
+                        </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_subdistrict_tree" model="ir.actions.act_window">
+            <field name="name">Kecamatan</field>
+            <field name="res_model">res.alisan.subdistrict</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field ref="alisan_subdistrict_tree" name="view_id"/>
+            <field name="search_view_id" ref="view_alisan_subdistrict_filter"/>
+        </record>
+        
+        <menuitem
+                name="Kecamatan"
+                id="subdistrict_alisan"
+                parent="base.menu_sales_config"
+                action="action_subdistrict_tree"
+                sequence="50" />
+
+    </data>
+</openerp>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="sms_gateway_log_tree" >
+            <field name="name">res.sms.gateway.log.tree</field>
+            <field name="model">res.sms.gateway.log</field>
+            <field name="arch" type="xml">
+                <tree string="SMS Gateway" editable="none" create="false">
+                    <field name="message_id" readonly="True"/>
+                    <field name="message" readonly="True"/>
+                    <field name="to" readonly="True"/>
+                    <field name="voucher_number" readonly="True"/>
+                    <field name="sending_status" readonly="True"/>
+                    <field name="text" readonly="True"/>
+                    <field name="create_date" readonly="True"/>
+                    <button name="action_resend_sms" string="Resend SMS" type="object" help="Resend SMS" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_sms_gateway_log_tree" model="ir.actions.act_window">
+            <field name="name">SMS Gateway Log</field>
+            <field name="res_model">res.sms.gateway.log</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field ref="sms_gateway_log_tree" name="view_id"/>
+        </record>
+
+    </data>
+    <data noupdate="0">
+        <record id="id_server_action" model="ir.actions.server">
+            <field name="name">Check SMS Status</field>
+            <field name="model_id" ref="base_sms_gateway.model_res_sms_gateway_log"/>
+            <field name="state">code</field>
+            <field name="code">action = env["res.sms.gateway.log"].automated_action_method()</field>
+        </record>
+    </data>
+    <data noupdate="0">
+        <record id="id_automated_server_action" model="base.action.rule">
+            <field name="name">SMS Gateway Automated Check Status</field>
+            <field name="model_id" ref="base_sms_gateway.model_res_sms_gateway_log"/>
+            <field name="active">1</field>
+            <field name="kind">on_create</field>
+            <field name="server_action_ids" eval="[(6,0,[ref('id_server_action')])]"/>
+        </record>
+    </data>
+</openerp>

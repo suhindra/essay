@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="action_cust_route_list" model="ir.actions.act_window">
+			<field name="name">Rute Kunjungan</field>
+			<field name="res_model">fjp.route</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					click to add Data Rute Kunjungan
+				</p>
+				<p>click the create button to add new data Rute Kunjungan
+				</p>
+			</field>
+		</record>
+		
+		<menuitem 
+			id="menu_fjp_route_action_form"
+			name="Rute Kunjungan"
+			parent="base.menu_sales_config"
+			action="alisan_fixed_journal_plan_erp.action_cust_route_list" 
+			sequence="30" />
+		
+	</data>
+</openerp>

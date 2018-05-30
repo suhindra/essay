@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="cement_type_form">
+            <field name="name">cement.type.form</field>
+            <field name="model">cement.type</field>
+            <field name="arch" type="xml">
+                <form string="cement_type">
+                    <group>
+                    <field name="name"/>
+                    <field name="uom_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="cement_type_tree">
+            <field name="name">cement.type.tree</field>
+            <field name="model">cement.type</field>
+            <field name="arch" type="xml">
+                <tree string="cement_type">
+                    <field name="name"/>
+                    <field name="uom_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_cement_type_filter" model="ir.ui.view">
+            <field name="name">cement.type.select</field>
+            <field name="model">cement.type</field>
+            <field name="arch" type="xml">
+                <search string="Search Cement Type">
+                    <field name="name"/>
+                    <field name="uom_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_cement_type_tree" model="ir.actions.act_window">
+            <field name="name">Cement Type</field>
+            <field name="res_model">cement.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field ref="cement_type_tree" name="view_id"/>
+            <field name="search_view_id" ref="view_cement_type_filter"/>
+        </record>
+
+    </data>
+</openerp>

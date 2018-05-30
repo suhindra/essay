@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="voucher_scan_in_form">
+            <field name="name">res.voucher.scan.in.form</field>
+            <field name="model">res.voucher.scan</field>
+            <field name="arch" type="xml">
+                <form string="voucher scan in">
+                    <header>
+                        <button name="action_scan_in" type="object"
+                                string="Validate Scan"
+                                class="oe_highlight"
+                                attrs="{'invisible':[('barcode','=','')]}" />
+                        <button name="action_confirm_scan_in" type="object"
+                                string="Validate And Print"
+                                class="oe_highlight"
+                                attrs="{'invisible':[('barcode','=','')]}" />
+                    </header>
+                    <group col="4">
+                    <field name="barcode" on_change="onchange_in_barcode(barcode)"/>
+                    <field name="input_date" readonly="True"/>
+                    <field name="voucher_number" readonly="True"/>
+                    <field name="cement_type" readonly="True"/>
+                    <field name="web_order_number"/>
+                    <field name="uom_id" readonly="True"/>
+                    <field name="customer_id" readonly="True"/>
+                    <field name="qty" readonly="True"/>
+                    <field name="sales_id" readonly="True"/>
+                    <field name="exp_date" readonly="True"/>
+                    <field name="warehouse_id" readonly="True"/>
+                    <field name="load_status" readonly="True"/>
+                    <field name="plate_number"/>
+                    <field name="factory" readonly="True"/>
+                    <field name="driver"/>
+                    <field name="voucher_number_help" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="voucher_scan_in_tree">
+            <field name="name">res.voucher.scan.tree</field>
+            <field name="model">res.voucher.scan</field>
+            <field name="arch" type="xml">
+                <tree string="voucher">
+                    <field name="voucher_number"/>
+                    <field name="barcode"/>
+                    <field name="web_order_number"/>
+                    <field name="customer_id"/>
+                    <field name="sales_id"/>
+                    <field name="cement_type"/>
+                    <field name="uom_id"/>
+                    <field name="qty"/>
+                    <field name="input_date"/>
+                    <field name="exp_date"/>
+                    <field name="warehouse_id" readonly="True"/>
+                    <field name="load_status"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_voucher_form" model="ir.actions.act_window">
+            <field name="name">Scan Masuk</field>
+            <field name="res_model">res.voucher.scan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">inline</field>
+            <field ref="voucher_scan_in_form" name="view_id"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="custom_geo_view" model="ir.ui.view">
+            <field name="name">res.partner.custom.geo.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base_geolocalize.view_crm_partner_geo_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='geo_location']" position="replace"></xpath>
+            </field>
+        </record>
+        <record id="custom_customer_view" model="ir.ui.view">
+            <field name="name">res.partner.custom.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ref']" position="replace"></xpath>
+                <xpath expr="//field[@name='website']" position="after">
+                    <button
+                        string="Geo Localize"
+                        name="geo_localize"
+                        colspan="2"
+                        icon="gtk-apply"
+                        type="object"/>
+                    <field name="date_localization"/>
+                    <field name="partner_latitude" /> 
+                    <field name="partner_longitude"/>
+                    <field name="ref"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="tree_partners_extra">
+            <field name="name">res.partner.extend.field</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='email']" position="after">
+                        <field name="partner_latitude" /> 
+                        <field name="partner_longitude"/>
+                        <field name="ref"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>
